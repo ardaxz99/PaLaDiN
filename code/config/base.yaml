@@ -1,0 +1,10 @@
+models:
+    model_paladin:
+        model_name: Paladin 
+        agent_name: DeepSpeedAgent
+        stage1_train_dataset: MVTecDataset
+        test_dataset: SelfInstructTestDataset
+
+# ========= Global configuration ========== #
+logging_step: 1000
+# ========= Global configuration ========== #
