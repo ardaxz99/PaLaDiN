@@ -6,7 +6,6 @@
 
 **Accepted to CVPR 2026 Workshop on Vision-based Industrial Anomaly Detection — VAND**
 
-[![CVPR 2026 Workshop](https://img.shields.io/badge/CVPR%202026-Workshop-blue)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
 [![Paper Page](https://img.shields.io/badge/Paper%20Page-CVF%20Open%20Access-red)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
 [![PDF](https://img.shields.io/badge/PDF-Download-orange)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/papers/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.pdf)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Material-purple)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/supplemental/Basaran_PALADIN_Prompt-Aligned_Localization_CVPRW_2026_supplemental.pdf)
