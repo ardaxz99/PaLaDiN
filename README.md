@@ -1,5 +1,3 @@
-# PALADIN
-
 <div align="center">
 
 # **PALADIN**
@@ -9,7 +7,9 @@
 **Accepted to CVPR 2026 Workshop on Vision-based Industrial Anomaly Detection — VAND**
 
 [![CVPR 2026 Workshop](https://img.shields.io/badge/CVPR%202026-Workshop-blue)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
-[![Paper](https://img.shields.io/badge/Paper-CVF%20Open%20Access-red)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
+[![Paper Page](https://img.shields.io/badge/Paper%20Page-CVF%20Open%20Access-red)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
+[![PDF](https://img.shields.io/badge/PDF-Download-orange)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/papers/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.pdf)
+[![Supplementary](https://img.shields.io/badge/Supplementary-Material-purple)](https://openaccess.thecvf.com/content/CVPR2026W/VAND/supplemental/Basaran_PALADIN_Prompt-Aligned_Localization_CVPRW_2026_supplemental.pdf)
 [![Datasets](https://img.shields.io/badge/Datasets-MVTec%20%7C%20VisA-green)](#prepare-the-data-folders)
 
 </div>
@@ -18,15 +18,17 @@
 
 ## Overview
 
-**PALADIN** is a prompt-based industrial anomaly detection framework designed for anomaly localization and image-level anomaly detection under the normal-only training setting.
+**PALADIN** is a prompt-based industrial anomaly detection framework for image-level anomaly detection and pixel-level anomaly localization under the normal-only industrial anomaly detection setting.
 
-The project combines:
+PALADIN combines a **DINOv3 ViT-L/16** visual backbone with **OpenCLIP** text embeddings and learnable prompts. It aligns patch-level visual features with prompt-conditioned normal and abnormal text prototypes, enabling dense anomaly localization without using real anomaly labels during training.
+
+The project is built around:
 
 * a **DINOv3 ViT-L/16** visual backbone
 * **OpenCLIP** text embeddings
 * **learnable text prompts**
-* **Cross-Modal Alignment Adapters** for aligning visual patch features with text prototypes
-* **guided synthetic anomaly generation** for training without real anomaly labels
+* **Cross-Modal Alignment Adapters**
+* **guided synthetic anomaly generation** for training
 * optional **top-k anomaly scoring** for evaluation
 
 This repository currently supports:
@@ -38,23 +40,11 @@ This repository currently supports:
 
 ## Abstract
 
-Industrial anomaly detection requires identifying subtle and previously unseen defects when real anomaly examples are scarce. PALADIN addresses this setting by connecting strong self-supervised visual representations from DINOv3 with language-guided anomaly reasoning from CLIP-style text embeddings.
+Industrial anomaly detection requires identifying subtle and previously unseen defects when real anomaly examples and annotations are scarce. PALADIN addresses this challenge by connecting strong self-supervised visual representations from DINOv3 with language-guided anomaly reasoning from CLIP-style text embeddings.
 
-The method keeps the visual and text backbones frozen, while lightweight alignment modules project DINO patch features into the text embedding space. Dense anomaly maps are then produced by comparing patch-level visual features against prompt-conditioned normal and abnormal text prototypes. Training uses only normal images from the target dataset, together with guided synthetic anomalies that provide pixel-level supervision without requiring real anomaly labels.
+The method keeps the visual and text backbones frozen, while lightweight alignment modules project DINO patch features into the text embedding space. Dense anomaly maps are produced by comparing patch-level visual features against prompt-conditioned normal and abnormal text prototypes. Training uses only normal images from the target dataset, together with guided synthetic anomaly generation that provides pixel-level supervision without requiring real anomaly labels.
 
 PALADIN also supports few-shot adaptation through a non-parametric memory bank built from clean support samples. Experiments on MVTec-AD and VisA show that aligning self-supervised visual features with prompt-based language representations is an effective direction for scalable industrial anomaly detection and localization.
-
----
-
-## Paper
-
-**PALADIN: Prompt-Aligned Localization and Anomaly Detection with DINOv3**
-Arda Basaran
-*Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops, 2026*
-
-* [Paper page](https://openaccess.thecvf.com/content/CVPR2026W/VAND/html/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.html)
-* [PDF](https://openaccess.thecvf.com/content/CVPR2026W/VAND/papers/Basaran_PALADIN_Prompt-Aligned_Localization_and_Anomaly_Detection_with_DINOv3_CVPRW_2026_paper.pdf)
-* [Supplementary material](https://openaccess.thecvf.com/content/CVPR2026W/VAND/supplemental/Basaran_PALADIN_Prompt-Aligned_Localization_CVPRW_2026_supplemental.pdf)
 
 ---
 
@@ -62,7 +52,7 @@ Arda Basaran
 
 ### 1. Create an Environment
 
-You need a Python environment with the packages from [requirements.txt](/Users/abasaran/Desktop/PhD/PaLaDiN/requirements.txt:1), a working PyTorch + CUDA setup, and `deepspeed`. A simple setup is:
+You need a Python environment with the packages from [requirements.txt](requirements.txt), a working PyTorch + CUDA setup, and `deepspeed`. A simple setup is:
 
 ```bash
 python -m venv .venv
@@ -91,7 +81,7 @@ The model code resolves this repo automatically from the project root.
 
 Place this file in the project root:
 
-```bash
+```text
 ./dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth
 ```
 
@@ -185,7 +175,7 @@ This script currently runs:
 * dataset path: `./data/mvtec`
 * output path: `./code/mvtec_paladin/train_mvtec/`
 
-If your local paths differ, edit [scripts/train_mvtec.sh](/Users/abasaran/Desktop/PhD/PaLaDiN/scripts/train_mvtec.sh:1).
+If your local paths differ, edit [scripts/train_mvtec.sh](scripts/train_mvtec.sh).
 
 To use a custom MVTec path:
 
@@ -206,7 +196,7 @@ This script currently runs:
 * dataset path: `./data/visa`
 * output path: `./code/visa_paladin/train_visa/`
 
-If your local paths differ, edit [scripts/train_visa.sh](/Users/abasaran/Desktop/PhD/PaLaDiN/scripts/train_visa.sh:1).
+If your local paths differ, edit [scripts/train_visa.sh](scripts/train_visa.sh).
 
 To use a custom VisA path:
 
@@ -236,7 +226,7 @@ This script currently expects the checkpoint at:
 ./code/mvtec_paladin/train_mvtec/epoch_10/pytorch_model.pt
 ```
 
-If your checkpoint is elsewhere, edit [scripts/test_mvtec.sh](/Users/abasaran/Desktop/PhD/PaLaDiN/scripts/test_mvtec.sh:1).
+If your checkpoint is elsewhere, edit [scripts/test_mvtec.sh](scripts/test_mvtec.sh).
 
 Use `PALADIN_MVTEC_PATH` here too if your MVTec dataset is not under `./data/mvtec`.
 
@@ -258,7 +248,7 @@ This script currently expects the checkpoint at:
 ./code/visa_paladin/train_visa/epoch_10/pytorch_model.pt
 ```
 
-If your checkpoint is elsewhere, edit [scripts/test_visa.sh](/Users/abasaran/Desktop/PhD/PaLaDiN/scripts/test_visa.sh:1).
+If your checkpoint is elsewhere, edit [scripts/test_visa.sh](scripts/test_visa.sh).
 
 Use `PALADIN_VISA_PATH` here too if your VisA dataset is not under `./data/visa`.
 
